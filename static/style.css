@@ -1,0 +1,109 @@
+/* Reset some default styles */
+body, h2, form {
+    margin: 0;
+    padding: 0;
+}
+
+/* Apply a background color and center content */
+body {
+    background-color: #f2f2f2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+/* Style the form container */
+form {
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    padding: 40px;
+    margin: 20px;
+    text-align: center;
+    max-width: 400px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Style file input and submit button */
+input[type="file"] {
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    padding: 10px;
+    width: 100%;
+}
+
+input[type="submit"] {
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+input[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+/* Style the image container */
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+img {
+    margin: 10px;
+    border: 1px solid #ccc;
+}
+
+a {
+    text-decoration: none;
+    color: #ff0000;
+    margin-left: 5px;
+}
+
+/* Style the h2 headings */
+h2 {
+    margin-top: 20px;
+    color: #333;
+}
+/* Style the download button container */
+.download-button {
+    background-color: #007BFF;
+    color: #fff;
+    padding: 10px 20px;
+    text-align: center;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 20px;
+    max-width: 200px;
+}
+
+.download-button:hover {
+    background-color: #0056b3;
+}
+/* Footer styles */
+.footer {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.footer-text {
+    font-size: 14px;
+    color: #777;
+}
+
+.footer-link {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.footer-link:hover {
+    text-decoration: underline;
+}
