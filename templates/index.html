@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Images to Slideshow Generator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Images to Slideshow Video Generator</h1>
+  <h2>Upload Images</h2>
+    <form action="/upload" method="POST" enctype="multipart/form-data">
+        <input type="file" name="file" multiple>
+        <input type="submit" value="Upload">
+    </form>
+    
+   
+    <ul>
+        {% for image in images %}
+            <img src="{{ url_for('uploaded_file', filename=image) }}" alt="{{ image }}" height="100">
+            <a href="/delete/{{ image }}">Delete</a>
+        {% endfor %}
+    </ul>
+
+    <h2>Upload MP3 Files</h2>
+    <form method="POST" enctype="multipart/form-data" action="/generate">
+        <label for="speech">Upload Speech MP3:</label>
+        <input type="file" name="speech" id="speech" accept=".mp3" required><br>
+
+        <label for="background">Upload Background MP3:</label>
+        <input type="file" name="background" id="background" accept=".mp3" required><br>
+
+        <input type="submit" value="Generate Slideshow">
+    </form>
+    <footer class="footer">
+        <p class="footer-text">
+            © Created by <a href="https://about.me/mohaimenulislamshawon/" target="_blank" class="footer-link">Shawon</a>
+        </p>
+</footer>
+</body>
+</html>
