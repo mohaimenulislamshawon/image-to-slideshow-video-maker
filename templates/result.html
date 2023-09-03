@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Download Generated Video</title>
+</head>
+<body>
+    <h1>Video Player</h1>
+    
+    <!-- Video Player -->
+    <div class="video-container">
+        <video controls>
+            <source src="{{ url_for('static', filename='final_output.mp4') }}" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+    
+    <!-- Download Button -->
+    <div class="download-button">
+        <a href="{{ url_for('static', filename='final_output.mp4') }}" download>
+            <button>Download Video</button>
+        </a>
+    </div>
+    <footer class="footer">
+        <p class="footer-text">
+            © Created by <a href="https://about.me/mohaimenulislamshawon/" target="_blank" class="footer-link">Shawon</a>
+        </p>
+</footer>
+</body>
+</html>
