@@ -1,17 +1,20 @@
+# /content/image-to-slideshow-video-maker/app.py
+
 from flask import Flask, render_template, request, redirect, url_for, send_from_directory
 import os
+from google.colab import files
 from generate import generatex
 import datetime
 from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
-app.config['UPLOAD_FOLDER_img'] = 'myimg'
-app.config['UPLOAD_FOLDER_speech'] = 'myspeech'
-app.config['UPLOAD_FOLDER_background'] = 'mybackground'
+app.config['UPLOAD_FOLDER_img'] = '/myimg' 
+app.config['UPLOAD_FOLDER_speech'] = '/myspeech'
+app.config['UPLOAD_FOLDER_background'] = '/mybackground'
 
 @app.route('/')
 def index():
-    images = os.listdir(app.config['UPLOAD_FOLDER_img'])
+    images = os.listdir(app.config['UPLOAD_FOLDER_img']) 
     has_files = images and os.listdir(app.config['UPLOAD_FOLDER_speech']) and os.listdir(app.config['UPLOAD_FOLDER_background'])
     return render_template('index.html', images=images, has_files=has_files)
 
