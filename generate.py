@@ -7,7 +7,7 @@ def generatex():
     image_directory = 'myimg'
     # Input and output settings for image video generation
     
-    image_display_duration = 2700  # milliseconds (2.8 seconds)
+    image_display_duration = 4000  # milliseconds (2.8 seconds)
     transition_duration = 40  # Frames 
     frame_rate = 30
     video_width = 1920
@@ -59,25 +59,36 @@ def generatex():
         image1 = prepare_image_for_video(image1, video_width, video_height)
 
         # Apply zoom and pan effect to the current image
-        zoom_frames = zoom_and_pan_effect(image1, video_width, video_height,ZOOM_FACTOR, 'right', int(image_display_duration * frame_rate / 1000))
-        for zoom_frame in zoom_frames:
-            output_video.write(zoom_frame)
+        zoom_frames = zoom_and_pan_effect(image1, video_width, video_height, ZOOM_FACTOR, 'right', int(image_display_duration * frame_rate / 1000))
+        if i == 0:
+            bzoom_frames = zoom_frames[:-transition_duration]
+        else:
+            print("B"+str(len(zoom_frames)))
+            bzoom_frames = zoom_frames[transition_duration:]
+            bzoom_frames = bzoom_frames[:-transition_duration]
+            print("A"+str(len(bzoom_frames)))
+
+        
+        for bzoom_frame in bzoom_frames:
+            output_video.write(bzoom_frame)
 
         # Prepare the next image
         image2_path = os.path.join(image_directory, image_files[i + 1])
         image2 = cv2.imread(image2_path)
         image2 = prepare_image_for_video(image2, video_width, video_height)
 
-        # Transition effect to the next image
-        last_zoom_frame = zoom_frames[-1]  # Take the last frame from the zoom effect
-        print(f"This Image: {image1_path}")  # Debugging: Check the size of the last zoom frame
-        print(f"Last zoom frame size: {last_zoom_frame.shape}")  # Debugging: Check the size of the last zoom frame
-        print(f"Next image size: {image2.shape}")  # Debugging: Check the size of the next image
+        # Apply zoom and pan effect to the next image
+        zoom_frames2 = zoom_and_pan_effect(image2, video_width, video_height, ZOOM_FACTOR, 'right', int(image_display_duration * frame_rate / 1000))
+        zoom_frames2 = zoom_frames2[:transition_duration]
+        # Transition effect from image1 to image2
+        last_zoom_frames = zoom_frames[-transition_duration:]  # Take the last N frames from the zoom effect of image1
+        first_zoom_frames2 = zoom_frames2[:transition_duration]  # Take the first N frames from the zoom effect of image2
+        #
 
-        for frame in range(transition_duration + 1):
+        for frame, (last_zoom_frame, zoom_frame2) in enumerate(zip(last_zoom_frames, first_zoom_frames2)):
             alpha = frame / transition_duration
             try:
-                blended = cv2.addWeighted(last_zoom_frame, 1 - alpha, cv2.resize(image2, (last_zoom_frame.shape[1], last_zoom_frame.shape[0])), alpha, 0)
+                blended = cv2.addWeighted(last_zoom_frame, 1 - alpha, zoom_frame2, alpha, 0)
                 output_video.write(blended)
             except cv2.error as e:
                 print(f"Error blending frames: {e}")
